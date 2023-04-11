@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const ejs = require('ejs');
 const app = express();
+const routes = require('./routes/user.route');
 
 app.set('views' , path.join(__dirname , 'views'));
 app.set('view engine' , ejs);
@@ -12,10 +13,7 @@ app.set('view engine' , ejs);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 
-app.get('/' , (req , res)=>{
-    res.send('working')
-})
-
+app.use('/' , routes);
 mongoose.connect(process.env.DB_URL).then(()=>{
     console.log("Connected to Database Successfully");
 }).catch(err =>{
